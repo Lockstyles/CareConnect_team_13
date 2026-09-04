@@ -1,37 +1,40 @@
                                                                                               QUERY PLAN                                                                                              
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- Incremental Sort  (cost=30659.32..38612.53 rows=100000 width=128) (actual time=93.766..99.048 rows=18020.00 loops=1)
+ Incremental Sort  (cost=30458.95..38412.15 rows=100000 width=128) (actual time=91.971..97.814 rows=18020.00 loops=1)
    Sort Key: moving_avg.revenue_day, (dense_rank() OVER w1)
    Presorted Key: moving_avg.revenue_day
    Full-sort Groups: 181  Sort Method: quicksort  Average Memory: 29kB  Peak Memory: 29kB
    Pre-sorted Groups: 181  Sort Method: quicksort  Average Memory: 31kB  Peak Memory: 31kB
-   Buffers: shared hit=1343, temp read=502 written=503
-   ->  WindowAgg  (cost=30625.66..32875.64 rows=100000 width=128) (actual time=93.703..97.203 rows=18020.00 loops=1)
+   Buffers: shared hit=68852
+   ->  WindowAgg  (cost=30425.28..32675.26 rows=100000 width=128) (actual time=91.913..95.848 rows=18020.00 loops=1)
          Window: w1 AS (PARTITION BY moving_avg.revenue_day ORDER BY moving_avg.moving_avg_7day ROWS UNBOUNDED PRECEDING)
          Storage: Memory  Maximum Storage: 17kB
-         Buffers: shared hit=1340, temp read=502 written=503
-         ->  Sort  (cost=30625.64..30875.64 rows=100000 width=88) (actual time=93.699..94.013 rows=18020.00 loops=1)
+         Buffers: shared hit=68849
+         ->  Sort  (cost=30425.26..30675.26 rows=100000 width=88) (actual time=91.907..92.241 rows=18020.00 loops=1)
                Sort Key: moving_avg.revenue_day, moving_avg.moving_avg_7day DESC
                Sort Method: quicksort  Memory: 1871kB
-               Buffers: shared hit=1340, temp read=502 written=503
-               ->  Subquery Scan on moving_avg  (cost=13282.95..17532.82 rows=100000 width=88) (actual time=67.264..89.297 rows=18020.00 loops=1)
-                     Buffers: shared hit=1337, temp read=502 written=503
-                     ->  WindowAgg  (cost=13282.95..17532.82 rows=100000 width=88) (actual time=67.262..88.575 rows=18020.00 loops=1)
+               Buffers: shared hit=68849
+               ->  Subquery Scan on moving_avg  (cost=121.61..17332.44 rows=100000 width=88) (actual time=4.082..86.644 rows=18020.00 loops=1)
+                     Buffers: shared hit=68846
+                     ->  WindowAgg  (cost=121.61..17332.44 rows=100000 width=88) (actual time=4.080..85.548 rows=18020.00 loops=1)
                            Window: w1 AS (PARTITION BY appointments.clinic_id ORDER BY (date_trunc('day'::text, appointments.created_at)) RANGE BETWEEN '6 days'::interval PRECEDING AND CURRENT ROW)
                            Storage: Memory  Maximum Storage: 17kB
-                           Buffers: shared hit=1337, temp read=502 written=503
-                           ->  GroupAggregate  (cost=13282.82..15782.82 rows=100000 width=56) (actual time=67.251..79.200 rows=18020.00 loops=1)
+                           Buffers: shared hit=68846
+                           ->  GroupAggregate  (cost=121.09..15582.44 rows=100000 width=56) (actual time=4.031..71.355 rows=18020.00 loops=1)
                                  Group Key: appointments.clinic_id, (date_trunc('day'::text, appointments.created_at))
-                                 Buffers: shared hit=1337, temp read=502 written=503
-                                 ->  Sort  (cost=13282.82..13532.82 rows=100000 width=30) (actual time=67.233..71.186 rows=100000.00 loops=1)
+                                 Buffers: shared hit=68846
+                                 ->  Incremental Sort  (cost=121.09..13332.44 rows=100000 width=30) (actual time=3.986..59.709 rows=100000.00 loops=1)
                                        Sort Key: appointments.clinic_id, (date_trunc('day'::text, appointments.created_at))
-                                       Sort Method: external merge  Disk: 4016kB
-                                       Buffers: shared hit=1337, temp read=502 written=503
-                                       ->  Seq Scan on appointments  (cost=0.00..2584.00 rows=100000 width=30) (actual time=0.047..27.738 rows=100000.00 loops=1)
-                                             Buffers: shared hit=1334
+                                       Presorted Key: appointments.clinic_id
+                                       Full-sort Groups: 100  Sort Method: quicksort  Average Memory: 28kB  Peak Memory: 28kB
+                                       Pre-sorted Groups: 100  Sort Method: quicksort  Average Memory: 97kB  Peak Memory: 97kB
+                                       Buffers: shared hit=68846
+                                       ->  Index Scan using idx_appointments_clinic_id on appointments  (cost=0.29..7097.55 rows=100000 width=30) (actual time=0.050..44.368 rows=100000.00 loops=1)
+                                             Index Searches: 1
+                                             Buffers: shared hit=68843
  Planning:
    Buffers: shared hit=191
- Planning Time: 2.006 ms
- Execution Time: 100.480 ms
-(33 rows)
+ Planning Time: 2.035 ms
+ Execution Time: 98.421 ms
+(36 rows)
 
