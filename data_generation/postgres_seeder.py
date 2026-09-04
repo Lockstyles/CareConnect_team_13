@@ -7,7 +7,7 @@ Requires:
 
 Set your connection string using PG_DSN, for example:
 
-    export PG_DSN='dbname=CareConnect user=postgres password=YOUR_PASSWORD host=localhost port=5432'
+    export PG_DSN='dbname=CareConnect user=postgres password=<your_password> host=localhost port=5432'
 """
 
 import os
@@ -29,7 +29,7 @@ fake = Faker()
 DEFAULT_DSN = (
     "dbname=CareConnect "
     "user=postgres "
-    "password=aditya "
+    "password=<your_password> "
     "host=localhost "
     "port=5432"
 )

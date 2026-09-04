@@ -22,7 +22,7 @@ CareConnect models a telemedicine platform's data layer across two databases:
 
 ### 2.1 Prerequisites
 
-- DPostgres 16 and MongoDB 7 
+- PostgreSQL 16 and MongoDB 7 
 - Python 3.10+ with `pip`
 - brew install postgresql@16
 - brew services start postgresql@16
@@ -36,7 +36,7 @@ CareConnect models a telemedicine platform's data layer across two databases:
 **MacOS**
 ```bash
 psql postgres
-CREATE USER admin WITH PASSWORD 'devpass';
+CREATE USER admin WITH PASSWORD '<your-password>';
 
 # Inside the psql prompt:
 CREATE DATABASE "CareConnect" OWNER admin;
@@ -44,7 +44,7 @@ CREATE DATABASE "CareConnect" OWNER admin;
 psql -U admin -d CareConnect 
 
 mongosh
-use CareConnect
+use careconnect
 ```
 
 **Ubuntu**
@@ -64,14 +64,14 @@ sudo systemctl enable mongod
 sudo -u postgres psql
 
 # Inside the psql prompt:
-CREATE USER admin WITH PASSWORD 'devpass';
+CREATE USER admin WITH PASSWORD '<your_password>';
 CREATE DATABASE "CareConnect" OWNER admin;
 \q
 
 psql -h localhost -U admin -d CareConnect
 
 mongosh
-use CareConnect
+use careconnect
 ```
 
 ### 2.3 Apply the PostgreSQL schema (run in order)
@@ -100,7 +100,7 @@ python3 -m venv venv
 source venv/bin/activate      # on Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
-export PG_DSN='dbname=CareConnect user=admin password=devpass host=localhost port=5432'
+export PG_DSN='dbname=CareConnect user=postgres password=<your_password> host=localhost port=5432'
 export MONGO_URI='mongodb://localhost:27017'
 export MONGO_DB_NAME='careconnect'
 
