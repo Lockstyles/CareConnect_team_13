@@ -216,7 +216,7 @@ Total execution time: **91.6ms** over 100,000 appointment rows.
 
 ### 4.2 Workflow 3 & 4
 
----
+```
 
 {
   "workflow3_nearest_nurse": {
@@ -250,7 +250,7 @@ Total execution time: **91.6ms** over 100,000 appointment rows.
 
 The output file was too long so these are the first 20 lines, and the rest of the output is in the mongo_execution_stats.json
 
----
+```
 
 ## 5. Repository Structure
 
