@@ -14,7 +14,7 @@ moving_avg AS (
         AVG(daily_revenue) OVER (
             PARTITION BY clinic_id
             ORDER BY revenue_day
-            RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW
+            ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
         ) AS moving_avg_7day
     FROM daily_copay
 )
@@ -29,4 +29,3 @@ SELECT
     ) AS clinic_rank_that_day
 FROM moving_avg
 ORDER BY revenue_day, clinic_rank_that_day;
-
