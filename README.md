@@ -3,8 +3,7 @@
 CS6.302 Software System Development — Assignment 1: Database Design
 Team 13
 
-**GitHub Repository:** `<https://github.com/Lockstyles/CareConnect_team_13>`
-**Final Commit Hash:** `<PASTE_COMMIT_HASH_HERE>`
+**GitHub Repository:** `https://github.com/Lockstyles/CareConnect_team_13`
 
 ---
 
