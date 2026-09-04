@@ -19,9 +19,6 @@ from faker import Faker
 
 fake = Faker()
 
-# NOTE: match this to however you actually created your database.
-# You connected with: psql -U postgres "CareConnect" -f ...
-# so the dbname here must match exactly (case-sensitive if quoted at creation).
 DEFAULT_DSN = 'dbname=CareConnect user=postgres password=postgres host=localhost port=5432'
 PG_DSN = os.environ.get("PG_DSN", DEFAULT_DSN)
 
@@ -30,8 +27,6 @@ N_PATIENTS = 5000
 N_APPOINTMENTS = 100_000
 BATCH_SIZE = 5000
 
-# Probability that a patient's single most-recent appointment is still
-# "active" (WAITING or IN_CONSULTATION) rather than DISCHARGED.
 ACTIVE_PROB = 0.25
 
 
