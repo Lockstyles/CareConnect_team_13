@@ -1,15 +1,6 @@
-// =====================================================================
-// 01_collections_and_indexes.js
-// CareConnect - Unstructured (MongoDB) collection setup
-// Run with: mongosh careconnect 01_collections_and_indexes.js
-// =====================================================================
-
 db = db.getSiblingDB("careconnect");
 
-// ---------------------------------------------------------------------
-// MedicalCatalogs - flexible docs storing specialist availability and
-// varied medication details (deliberately loose schema per patient/clinic)
-// ---------------------------------------------------------------------
+// MedicalCatalogs - flexible docs storing specialist availability and varied medication details (deliberately loose schema per patient/clinic)
 db.createCollection("MedicalCatalogs", {
     validator: {
         $jsonSchema: {
@@ -18,17 +9,13 @@ db.createCollection("MedicalCatalogs", {
             properties: {
                 clinic_id: { bsonType: "string", description: "references Postgres clinics.id" },
                 type: { enum: ["specialist_availability", "medication"], description: "discriminator field" },
-                // everything else is intentionally flexible / schema-less
             }
         }
     },
     validationLevel: "moderate"
 });
 
-// ---------------------------------------------------------------------
-// PatientReviews - structured reviews with ratings, bedside-manner tags,
-// and timestamps
-// ---------------------------------------------------------------------
+// PatientReviews - structured reviews with ratings, bedside-manner tags, and timestamps
 db.createCollection("PatientReviews", {
     validator: {
         $jsonSchema: {
@@ -47,10 +34,7 @@ db.createCollection("PatientReviews", {
     validationLevel: "moderate"
 });
 
-// ---------------------------------------------------------------------
-// NursePings - real-time geospatial location logs of dispatched mobile nurses
-// location must be stored as GeoJSON for 2dsphere indexing
-// ---------------------------------------------------------------------
+// NursePings - real-time geospatial location logs of dispatched mobile nurses location must be stored as GeoJSON for 2dsphere indexing
 db.createCollection("NursePings", {
     validator: {
         $jsonSchema: {
@@ -78,10 +62,6 @@ db.createCollection("NursePings", {
     },
     validationLevel: "moderate"
 });
-
-// ---------------------------------------------------------------------
-// Indexes
-// ---------------------------------------------------------------------
 
 // Geospatial index for $geoNear (Workflow 3)
 db.NursePings.createIndex({ location: "2dsphere" });
