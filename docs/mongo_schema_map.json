@@ -1,0 +1,134 @@
+{
+  "collections": {
+    "careconnect.MedicalCatalogs": {
+      "ns": "careconnect.MedicalCatalogs",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "clinic_id",
+          "type"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "available_slots": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "string"
+            }
+          },
+          "clinic_id": {
+            "bsonType": "string"
+          },
+          "dosage_mg": {
+            "bsonType": "int"
+          },
+          "in_stock": {
+            "bsonType": "int"
+          },
+          "name": {
+            "bsonType": "string"
+          },
+          "specialist_name": {
+            "bsonType": "string"
+          },
+          "specialty": {
+            "bsonType": "string"
+          },
+          "type": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "careconnect.NursePings": {
+      "ns": "careconnect.NursePings",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "created_at",
+          "is_active",
+          "location",
+          "nurse_id"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "created_at": {
+            "bsonType": "date"
+          },
+          "is_active": {
+            "bsonType": "bool"
+          },
+          "location": {
+            "bsonType": "object",
+            "properties": {
+              "coordinates": {
+                "bsonType": "array",
+                "items": {
+                  "bsonType": "double"
+                }
+              },
+              "type": {
+                "bsonType": "string"
+              }
+            },
+            "required": [
+              "coordinates",
+              "type"
+            ]
+          },
+          "nurse_id": {
+            "bsonType": "string"
+          }
+        }
+      }
+    },
+    "careconnect.PatientReviews": {
+      "ns": "careconnect.PatientReviews",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "clinic_id",
+          "comment",
+          "created_at",
+          "patient_id",
+          "rating",
+          "tags"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "clinic_id": {
+            "bsonType": "string"
+          },
+          "comment": {
+            "bsonType": "string"
+          },
+          "created_at": {
+            "bsonType": "date"
+          },
+          "patient_id": {
+            "bsonType": "string"
+          },
+          "rating": {
+            "bsonType": "int"
+          },
+          "tags": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "relationships": []
+}
